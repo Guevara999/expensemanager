@@ -1,0 +1,39 @@
+name: Build G Wallet Alternative
+
+on:
+  workflow_dispatch: # Gives you the manual play button to build
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Source Code
+      uses: actions/checkout@v4
+
+    - name: Set up Java JDK 17
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'temurin'
+        java-version: '17'
+
+    - name: Inject Custom App Configurations
+      run: |
+        # 1. Safely rewrite the visible App Name everywhere in the layouts
+        find . -type f -name "strings.xml" -exec sed -i 's/Expense Manager/G Wallet/g' {} +
+        find . -type f -name "strings.xml" -exec sed -i 's/ExpenseManager/G Wallet/g' {} +
+
+        # 2. Change the application identity footprint so it's uniquely yours
+        find . -type f -name "build.gradle.kts" -exec sed -i 's/com.naveenapps.expensemanager/com.gwallet.app/g' {} +
+
+    - name: Grant Execute Permission for Gradle
+      run: chmod +x gradlew
+
+    - name: Build Android APK
+      run: ./gradlew assembleDebug --no-daemon
+
+    - name: Upload Finished APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: G-Wallet-New-Installer
+        path: "**/build/outputs/apk/debug/*.apk"
