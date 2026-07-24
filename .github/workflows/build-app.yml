@@ -1,7 +1,7 @@
 name: Build G Wallet Alternative
 
 on:
-  workflow_dispatch: # Gives you the manual play button to build
+  workflow_dispatch: # Manual button trigger
 
 jobs:
   build:
@@ -15,22 +15,18 @@ jobs:
       uses: actions/setup-java@v4
       with:
         distribution: 'temurin'
-        java-version: '21' # 👈 UPDATED TO FIX THE JVM VERSION ERROR
+        java-version: '21'
 
-    - name: Inject Custom App Configurations
+    - name: Inject Custom Name Safely
       run: |
-        # 1. Safely rewrite the visible App Name everywhere in the layouts
-        find . -type f -name "strings.xml" -exec sed -i 's/Expense Manager/G Wallet/g' {} +
-        find . -type f -name "strings.xml" -exec sed -i 's/ExpenseManager/G Wallet/g' {} +
-
-        # 2. Change the application identity footprint so it's uniquely yours
-        find . -type f -name "build.gradle.kts" -exec sed -i 's/com.naveenapps.expensemanager/com.gwallet.app/g' {} +
+        # Safely inject G Wallet into the main app module's build configuration
+        sed -i '/defaultConfig {/a \        resValue("string", "app_name", "G Wallet")' app/build.gradle.kts
 
     - name: Grant Execute Permission for Gradle
       run: chmod +x gradlew
 
     - name: Build Android APK
-      run: ./gradlew assembleDebug --no-daemon
+      run: ./gradlew :app:assembleDebug --no-daemon
 
     - name: Upload Finished APK
       uses: actions/upload-artifact@v4
