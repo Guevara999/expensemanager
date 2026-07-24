@@ -1,28 +1,17 @@
 <resources>
-
-    <string name="app_name">Expense Manager</string>
-
+    <!-- Old line: <string name="app_name">Expense Manager</string> -->
+    <string name="app_name">G Wallet</string>
 
     <!-- Failure message strings -->
-
     <string name="select">Select</string>
-
     <string name="title_home">Home</string>
     <string name="view_all">View all</string>
     <string name="accounts">Account</string>
-
     <string name="category_name">Category Name</string>
-
-
     <string name="title_graph">Graph</string>
-
-
     <string name="currency">Currency</string>
-
     <string name="choose_color">Choose color</string>
     <string name="choose_icon">Choose Icon</string>
-
-
     <string name="categories">Categories</string>
     <string name="total">Total</string>
     <string name="transaction_summary">Summary</string>
@@ -30,9 +19,8 @@
     <string name="category_selection_message">Should select at least one category to proceed</string>
     <string name="share">Share</string>
     <string name="hello">Hello!</string>
-    <string name="guest">Guest</string>
+    <string name="guest">G Wallet Member</string>
     <string name="balance">Balance</string>
-
     <string name="add_transaction">Add Transaction</string>
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
@@ -40,7 +28,9 @@
     <string name="analysis">Analysis</string>
     <string name="transaction">Transaction</string>
 
-    <string name="app_lock_title">Unlock Expense Manager</string>
-    <string name="app_lock_description">Verify your identity to continue</string>
+    <!-- Old line: <string name="app_lock_title">Unlock Expense Manager</string> -->
+    <string name="app_lock_title">Unlock G Wallet</string>
+    <string name="app_lock_description">Verify your identity to open G Wallet safely</string>
     <string name="app_lock_unlock">Unlock</string>
+    <string name="developed_by">Developed by G Wallet Team</string>
 </resources>
