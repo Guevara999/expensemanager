@@ -1,7 +1,7 @@
 name: Build G Wallet Alternative
 
 on:
-  workflow_dispatch: # Manual button trigger
+  workflow_dispatch: # Manual play button trigger
 
 jobs:
   build:
@@ -17,13 +17,20 @@ jobs:
         distribution: 'temurin'
         java-version: '21'
 
-    - name: Inject Custom Name & Enable Android Resources
+    - name: Inject Global Override Configuration
       run: |
-        # 1. Force enable androidResources.resValues inside the app configuration block
-        sed -i '/androidResources {/a \        resValues = true' app/build.gradle.kts
+        # Append an explicit build features block to the absolute bottom of the app configuration file
+        cat << 'EOF' >> app/build.gradle.kts
         
-        # 2. Inject your custom name cleanly into the defaultConfig layer
-        sed -i '/defaultConfig {/a \        resValue("string", "app_name", "G Wallet")' app/build.gradle.kts
+        android {
+            buildFeatures {
+                resValues = true
+            }
+            defaultConfig {
+                resValue("string", "app_name", "G Wallet")
+            }
+        }
+        EOF
 
     - name: Grant Execute Permission for Gradle
       run: chmod +x gradlew
