@@ -17,9 +17,12 @@ jobs:
         distribution: 'temurin'
         java-version: '21'
 
-    - name: Inject Custom Name Safely
+    - name: Inject Custom Name & Enable Android Resources
       run: |
-        # Safely inject G Wallet into the main app module's build configuration
+        # 1. Force enable androidResources.resValues inside the app configuration block
+        sed -i '/androidResources {/a \        resValues = true' app/build.gradle.kts
+        
+        # 2. Inject your custom name cleanly into the defaultConfig layer
         sed -i '/defaultConfig {/a \        resValue("string", "app_name", "G Wallet")' app/build.gradle.kts
 
     - name: Grant Execute Permission for Gradle
