@@ -246,6 +246,12 @@ dependencies {
     implementation(libs.androidx.biometric)
     implementation(libs.androidx.glance.appwidget)
     implementation(libs.androidx.glance.material3)
+    // Offline Text Recognition (OCR) Engine
+    implementation("com.google.android.gms:play-services-mlkit-text-recognition:19.0.0")
+    // Native Camera Engine framework
+    implementation("androidx.camera:camera-lifecycle:1.3.1")
+    implementation("androidx.camera:camera-view:1.3.1")
+
 
     testImplementation(project(":core:testing"))
     androidTestImplementation(project(":core:testing"))
